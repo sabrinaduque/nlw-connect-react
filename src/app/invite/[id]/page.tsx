@@ -1,12 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Image from 'next/image';
-import logo from '../../assets/logo.svg';
+import logo from '../../../assets/logo.svg';
 import Ranking from './ranking';
 import Stats from './stats';
 import InviteLinkInput from './invite-link-input';
 
-export const InvitePage = () => {
-  const inviteLink = 'https://localhost:3000/invite?ref=123456';
+interface InvitePageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+const InvitePage = async ({ params }: InvitePageProps) => {
+  const { id } = await params;
+
+  const inviteLink = `http://localhost:3333/invites/${id}`;
 
   return (
     <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
@@ -38,7 +46,7 @@ export const InvitePage = () => {
 
           <InviteLinkInput inviteLink={inviteLink} />
 
-          <Stats />
+          <Stats id={id} />
         </div>
       </div>
 
